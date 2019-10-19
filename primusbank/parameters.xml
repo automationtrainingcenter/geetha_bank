@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="parameter suite">
+	<parameter name="url"
+		value="http://primusbank.qedgetech.com/" />
+	<test name="parameter test">
+		<parameter name="browserName" value="firefox" />
+		<groups>
+			<run>
+				<include name="login" />
+			</run>
+		</groups>
+		<classes>
+			<class name="com.banking.primusbank.ParameterExecution">
+			</class>
+		</classes>
+	</test>
+</suite>

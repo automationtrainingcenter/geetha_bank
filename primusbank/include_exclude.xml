@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name = "basic suite">
+	<test name = "basic test">
+		<classes>
+			<class name = "com.banking.primusbank.BasicExecution">
+				<methods>
+					<include name="loginTest"/>
+					<include name="roleCreationWithValidData"/>
+				</methods>
+			</class>
+		</classes>
+	</test>
+</suite>

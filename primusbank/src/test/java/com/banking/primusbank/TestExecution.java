@@ -22,7 +22,7 @@ public class TestExecution extends BrowserHelper {
 	private EmployeeDetailsPage employeeDetailsPage;
 	private EmployeeCreationPage employeeCreationPage;
 
-	@Test(priority = 0, groups = {})
+	@Test(priority = 0, groups = {"empdd", "roledd", "login", "role", "branch", "employee", "reset", "cancel", "create" })
 	public void loginTest() {
 		bankHomePage = new BankHomePage(this.driver);
 		bankHomePage.fillUserName("Admin");
@@ -32,7 +32,7 @@ public class TestExecution extends BrowserHelper {
 		Assert.assertTrue(adminHomePage.isAdminHomePageDisplayed());
 	}
 
-	@Test(priority = 1, groups = { "role", "create" })
+	@Test(priority = 1, groups = { "role", "create" }, dependsOnMethods = { "loginTest" })
 	public void roleCreationWithValidData() {
 		adminHomePage.clickRoles();
 		roleDetailsPage = PageFactory.initElements(driver, RoleDetailsPage.class);
@@ -162,6 +162,33 @@ public class TestExecution extends BrowserHelper {
 		employeeCreationPage.clickCancel();
 		employeeDetailsPage = PageFactory.initElements(driver, EmployeeDetailsPage.class);
 		Assert.assertTrue(employeeDetailsPage.isThisPageDisplayed());
+	}
+
+	@Test(priority = 10, groups = { "roledd" }, dataProviderClass = TestDataProvider.class, dataProvider = "roleData")
+	public void roleCreationResetWithMultipleData(String roleName, String roleType) {
+		adminHomePage.clickRoles();
+		roleDetailsPage = PageFactory.initElements(driver, RoleDetailsPage.class);
+		roleDetailsPage.clickNewRole();
+		roleCreationPage = PageFactory.initElements(driver, RoleCreationPage.class);
+		roleCreationPage.fillRoleName(roleName);
+		roleCreationPage.selectRoleType(roleType);
+		roleCreationPage.clickReset();
+		Assert.assertTrue(roleCreationPage.isFormReset());
+	}
+
+	@Test(priority = 11, groups = { "empdd" }, dataProviderClass = TestDataProvider.class, dataProvider = "empData")
+	public void employeeCreationResetWithMultipleData(String empName, String pass, String roleType, String brachType) {
+		adminHomePage = PageFactory.initElements(driver, AdminHomePage.class);
+		adminHomePage.clickEmployees();
+		employeeDetailsPage = PageFactory.initElements(driver, EmployeeDetailsPage.class);
+		employeeDetailsPage.clickNewEmployee();
+		employeeCreationPage = PageFactory.initElements(driver, EmployeeCreationPage.class);
+		employeeCreationPage.fillEmployerName(empName);
+		employeeCreationPage.fillLoginpassword(pass);
+		employeeCreationPage.selectBranchType(brachType);
+		employeeCreationPage.selectRoleType(roleType);
+		employeeCreationPage.clickReset();
+		Assert.assertTrue(employeeCreationPage.isFormReset());
 	}
 
 }
