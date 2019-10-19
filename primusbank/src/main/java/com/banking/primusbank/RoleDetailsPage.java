@@ -21,4 +21,7 @@ public class RoleDetailsPage {
 		this.newRole.click();
 	}
 
+	public boolean isThisPageDisplayed() {
+		return this.newRole.isDisplayed();
+	}
 }

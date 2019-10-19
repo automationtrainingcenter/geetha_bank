@@ -21,4 +21,8 @@ public class BranchDetailsPage {
 		this.newbranch.click();
 	}
 
+	public boolean isThisPageDisplayed() {
+		return this.newbranch.isDisplayed();
+	}
+
 }
